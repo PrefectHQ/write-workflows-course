@@ -12,9 +12,9 @@ def extract(date_to_fetch: str):
 
     print("Extracting data...")
     try:
-        df = pd.read_csv(
-            f"https://raw.githubusercontent.com/PrefectHQ/write-workflows-course/refs/heads/main/data/maritime_transactions_{date_to_fetch}.csv"
-        )
+        url = f"https://raw.githubusercontent.com/PrefectHQ/write-workflows-course/refs/heads/main/data/maritime_transactions_{date_to_fetch}.csv"
+
+        df = pd.read_csv(url)
         print(df.head())
         return df
     except Exception as e:

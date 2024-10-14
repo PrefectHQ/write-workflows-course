@@ -9,14 +9,18 @@ import random
 def extract(date_to_fetch: str):
     """Extract sample maritime transaction data from CSV file."""
 
+    print(date_to_fetch)
+
+    # randomly fails most the time to demonstrate retries
+    if random.random() < 0.9:
+        raise Exception("Random error")
+
     print("Extracting data...")
+
     try:
-        # randomly fails most the time to demonstrate retries
-        if random.random() < 0.9:
-            raise Exception("Random error")
-        df = pd.read_csv(
-            f"https://raw.githubusercontent.com/PrefectHQ/write-workflows-course/refs/heads/main/data/maritime_transactions_{date_to_fetch}.csv"
-        )
+        url = f"https://raw.githubusercontent.com/PrefectHQ/write-workflows-course/refs/heads/main/data/maritime_transactions_{date_to_fetch}.csv"
+
+        df = pd.read_csv(url)
         print(df.head())
         return df
     except Exception as e:
