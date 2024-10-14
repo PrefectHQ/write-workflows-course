@@ -11,7 +11,7 @@ def extract():
     print("Extracting data...")
 
     df = pd.read_csv(
-        "https://raw.githubusercontent.com/PrefectHQ/write-workflows-course/refs/heads/main/data/starting_data.csv"
+        "https://raw.githubusercontent.com/PrefectHQ/write-workflows-course/refs/heads/main/data/maritime_transactions_2024-10-04.csv"
     )
 
     return df
@@ -37,7 +37,7 @@ def transform(df: pd.DataFrame):
 
 def load(df: pd.DataFrame):
     """
-    Load the transformed data into a DuckDB database.
+    Create a DuckDB database and load the data into it.
     """
     print("Loading data into DuckDB database")
 
