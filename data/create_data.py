@@ -39,7 +39,7 @@ def main(start_date: datetime):
     for days_prior in range(10, 0, -1):
         date_to_create = start_date - timedelta(days=days_prior)
         df = create_data(date_to_create)
-        file_name = f"starting_data_{date_to_create.strftime('%Y-%m-%d')}.csv"
+        file_name = f"maritime_transactions_{date_to_create.strftime('%Y-%m-%d')}.csv"
         load_raw_data(df, file_name)
     return
 
