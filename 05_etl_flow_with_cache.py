@@ -46,25 +46,10 @@ def load(df: pd.DataFrame):
     """
     print("Loading data into DuckDB database")
 
-    # Connect to DuckDB (this will create a new database if it doesn't exist)
+    # Connect to db
     conn = duckdb.connect("maritime_transactions.db")
 
     try:
-        # Create table if it doesn't exist
-        conn.execute(
-            """
-            CREATE TABLE IF NOT EXISTS maritime_transactions (
-                transaction_id VARCHAR,
-                ship_name VARCHAR,
-                transaction_amount FLOAT,
-                transaction_date DATE,
-                port VARCHAR,
-                currency VARCHAR,
-                amount_usd FLOAT,
-            )
-        """
-        )
-
         # Insert data into the table
         conn.execute("INSERT INTO maritime_transactions SELECT * FROM df")
 
