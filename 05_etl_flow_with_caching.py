@@ -3,17 +3,15 @@ import duckdb
 import pandas as pd
 from prefect import flow, task
 import random
+from prefect.cache_policies import INPUTS
 
 
-@task(retries=20)
+@task(cache_policy=INPUTS)
 def extract(date_to_fetch: str):
     """Extract sample maritime transaction data from CSV file."""
 
     print("Extracting data...")
     try:
-        # randomly fails 80% of the time to demonstrate retries
-        if random.random() < 0.8:
-            raise Exception("Random error")
         df = pd.read_csv(
             f"https://raw.githubusercontent.com/PrefectHQ/write-workflows-course/refs/heads/main/data/maritime_transactions_{date_to_fetch}.csv"
         )
@@ -71,4 +69,4 @@ def etl_flow(date_to_fetch: str):
 
 
 if __name__ == "__main__":
-    etl_flow(date_to_fetch="2024-10-08")
+    etl_flow(date_to_fetch="2024-10-09")
