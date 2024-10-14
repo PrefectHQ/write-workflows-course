@@ -3,11 +3,11 @@ from datetime import datetime, timedelta
 import random
 
 
-def create_data(start_date):
+def create_data(date_to_create: datetime) -> pd.DataFrame:
     """
     Create sample data that will be saved to a CSV file and stored in GitHub.
     """
-    print("Extracting data...")
+    print("Creating data...")
     data = []
     for _ in range(100):
         data.append(
@@ -36,14 +36,14 @@ def load_raw_data(df: pd.DataFrame, file_name: str):
 
 
 def main(start_date: datetime):
-
-    df = create_data(start_date=start_date)
-    print(df)
-    file_name = "starting_data.csv"
-    load_raw_data(df, file_name)
+    for days_prior in range(10, 0, -1):
+        date_to_create = start_date - timedelta(days=days_prior)
+        df = create_data(date_to_create)
+        file_name = f"starting_data_{date_to_create.strftime('%Y-%m-%d')}.csv"
+        load_raw_data(df, file_name)
     return
 
 
 if __name__ == "__main__":
-    start_date = datetime(2024, 10, 14) - timedelta(days=10)
+    start_date = datetime(2024, 10, 14)
     main(start_date)
