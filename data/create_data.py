@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 import random
 
 
-def create_data():
+def create_data(start_date):
     """
     Create sample data that will be saved to a CSV file and stored in GitHub.
     """
@@ -15,9 +15,7 @@ def create_data():
                 "transaction_id": f"TRX{random.randint(1000, 9999)}",
                 "ship_id": f"SHIP{random.randint(1, 50)}",
                 "transaction_amount": round(random.uniform(1000, 100000), 2),
-                "transaction_date": (
-                    datetime.now() - timedelta(days=random.randint(0, 30))
-                ).strftime("%Y-%m-%d"),
+                "transaction_date": (start_date).strftime("%Y-%m-%d"),
                 "port": random.choice(
                     ["Rotterdam", "Singapore", "Shanghai", "Los Angeles", "New York"]
                 ),
@@ -37,12 +35,15 @@ def load_raw_data(df: pd.DataFrame, file_name: str):
     return
 
 
-def main(file_name: str):
-    df = create_data()
+def main(start_date: datetime):
+
+    df = create_data(start_date=start_date)
     print(df)
+    file_name = "starting_data.csv"
     load_raw_data(df, file_name)
     return
 
 
 if __name__ == "__main__":
-    main(f"raw_maritime_transactions_{datetime.now().strftime('%Y-%m-%d')}.csv")
+    start_date = datetime(2024, 10, 14) - timedelta(days=10)
+    main(start_date)
