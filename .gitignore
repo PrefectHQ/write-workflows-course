@@ -164,3 +164,6 @@ cython_debug/
 
 # Exclude DS_Store files on macOS
 .DS_Store
+
+#virtual environment
+workflow_env/
