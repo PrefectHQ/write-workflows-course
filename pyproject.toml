@@ -1,7 +1,7 @@
 [project]
 name = "write-workflows"
 version = "0.1.0"
-description = "Add your description here"
+description = "Write workflows with Prefect course repository"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [prefect]
