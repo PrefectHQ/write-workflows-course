@@ -1,0 +1,90 @@
+<h1>Course setup</h1>
+
+<p><strong>Step 1.</strong> Clone the course repository at <a href="https://github.com/PrefectHQ/write-workflows-course"
+        rel="noopener noreferrer" target="_blank">github.com/PrefectHQ/write-workflows-course</a> by running this
+    command in your CLI:&nbsp;</p>
+
+<p><code>git clone <a href="https://github.com/PrefectHQ/write-workflows-course.git">https://github.com/PrefectHQ/write-workflows-course.git</a></code>
+</p>
+
+<p>The contents of the repository will be downloaded to your local machine in the <em>write-workflows-course</em>
+    folder.</p>
+
+<p><strong>Step 2.</strong> Create and activate a virtual environment.</p>
+
+<p>Virtual environments isolate your Python library versions to avoid dependency conflicts.</p>
+
+<p>Create a Python virtual environment. We recommend using <a
+        href="https://docs.astral.sh/uv/getting-started/installation/" rel="noopener noreferrer" target="_blank">uv</a>.
+</p>
+
+<p>See this GitHub gist for instructions to create and activate a virtual environment with, if needed.</p>
+
+<p><strong>Step 3.</strong> Install the necessary Python packages into your virtual environment by running this command
+    in your CLI:</p>
+<pre><code>pip install -r requirements.txt</code></pre>
+
+<p>You should see several packages installed into your environment.</p>
+
+<p>The packages versions pinned here work together as of this writing. If you like, you can remove the pins to upgrade
+    to the latest package versions.</p>
+
+<p>Create the database table and input the starter data by running this command:</p>
+<pre><code>python 00_setup.py</code></pre>
+
+<p><strong>Step 5.</strong> Set your Prefect backend option.</p>
+
+<p>You can interact with a Prefect API server one of two ways. You can either host a server yourself or you can interact
+    with a server hosted on the Prefect Cloud platform.</p>
+
+<p>With the Prefect Cloud platform, we take care of scaling the database, provides user authentication and access
+    controls, and additional features for enterprises to understand the global state of their workflows.</p>
+
+<p>Throughout the course we&#39;ll demonstrate with a self-hosted Prefect server instance, but either option is fine.
+</p>
+
+<p>If you are self-hosting a Prefect server instance, the default database type is SQLite. PostgreSQL is a good choice
+    for production workloads, but either database is fine for this course.</p>
+
+<p>Save your API endpoint to your Prefect profile.&nbsp;</p>
+
+<p>If you&#39;re using Prefect server, run</p>
+<pre><code class="language-plaintext">prefect config set PREFECT_API_URL=&quot;http://127.0.0.1:4200/api&quot;</code></pre>
+
+<p>This command will save your API endpoint to your active profile. Learn more about saving configuration with profiles
+    in the <a href="https://docs.prefect.io/3.0/manage/settings-and-profiles" rel="noopener noreferrer"
+        target="_blank">docs</a>.</p>
+
+<p>If you&#39;re using Prefect Cloud instead of self-hosting a server, sign up for a Prefect Cloud account or sign in
+    and run<code><br></code></p>
+<pre><code>prefect cloud login </code></pre>
+
+<p>to authenticate your CLI. This command saves both your API URL and an API key.</p>
+
+<p>Check your Prefect setup by running</p>
+<pre><code>prefect version</code></pre>
+
+<p>The output will provide useful information about your current environment and look something like this:&nbsp;</p>
+
+<p><code><img src="https://files.cdn.thinkific.com/file_uploads/871959/images/077/6de/dba/Screenshot_2024-10-18_at_3.48.44%E2%80%AFPM.png" style="width: 824px;" class="fr-fic fr-dii" srcset="https://files.cdn.thinkific.com/file_uploads/871959/images/077/6de/dba/Screenshot_2024-10-18_at_3.48.44%E2%80%AFPM.png?width=1920 1x, https://files.cdn.thinkific.com/file_uploads/871959/images/077/6de/dba/Screenshot_2024-10-18_at_3.48.44%E2%80%AFPM.png?width=1920&dpr=2 2x, https://files.cdn.thinkific.com/file_uploads/871959/images/077/6de/dba/Screenshot_2024-10-18_at_3.48.44%E2%80%AFPM.png?width=1920&dpr=3 3x" alt="Screenshot showing CLI output with version information."></code>
+</p>
+
+<p>If you&#39;ve updated your configuration options with Prefect, you&#39;ll see slightly different information.&nbsp;
+</p>
+
+<h2>Wrap</h2>
+
+<p>That&#39;s it for now! You&#39;ve learned about options for working with Prefect and set up your environment.&nbsp;
+</p>
+
+<p>Next, let&#39;s check out a few resources to assist us in the course and beyond.</p>
+
+
+
+<h2>Code example</h2>
+<pre><code>
+from prefect import flow
+
+def fl():
+  print(&quot;ok&quot;)
+</code></pre>
