@@ -9,4 +9,6 @@ dependencies = [
     "mlb-statsapi>=1.8.1",
     "pandas>=2.2.3",
     "prefect==3.2.5",
+    "pyarrow>=19.0.1",
+    "yfinance>=0.2.54",
 ]
