@@ -5,5 +5,7 @@ description = "Write workflows with Prefect course repository"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "mlb-statsapi>=1.8.1",
+    "pandas>=2.2.3",
     "prefect==3.2.5",
 ]
