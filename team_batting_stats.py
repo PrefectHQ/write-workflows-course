@@ -39,7 +39,7 @@ def get_nationals_most_recent_game():
                 if game["status"]["abstractGameState"] == "Final":
                     game_date = datetime.strptime(date_data["date"], "%Y-%m-%d")
 
-                    # If we haven't found a game yet, or this one is more recent
+                    # If we haven't found a game yet, or the current one is more recent
                     if most_recent_date is None or game_date > most_recent_date:
                         most_recent_game = game
                         most_recent_date = game_date
@@ -73,7 +73,7 @@ def get_game_data(most_recent_game: dict, most_recent_date: datetime) -> dict:
     nats_side = "home" if is_home else "away"
     opponent_side = "away" if is_home else "home"
 
-    # Get basic game info
+    # Store basic game info in a dictionary
     result = {
         "game_id": game_id,
         "date": most_recent_date,
@@ -88,11 +88,9 @@ def get_game_data(most_recent_game: dict, most_recent_date: datetime) -> dict:
     else:
         result["result"] = "LOSS"
 
-    # Get Nationals team stats
+    # Store Nationals team batt stats
     try:
         nats_stats = boxscore["teams"][nats_side]["teamStats"]
-
-        # Add batting stats
         result["team_batting"] = {
             "runs": nats_stats["batting"]["runs"],
             "hits": nats_stats["batting"]["hits"],
@@ -107,28 +105,25 @@ def get_game_data(most_recent_game: dict, most_recent_date: datetime) -> dict:
 
 def print_batting_stats(stats):
     """Print batting stats in a nicely formatted table"""
+
     if "error" in stats:
         print(f"ERROR: {stats['error']}")
         return
-
-    # Print game info
     print("\n" + "=" * 80)
     print(f"WASHINGTON NATIONALS - {stats['date']} vs {stats['opponent']}")
     print(f"Result: {stats['result']} - {stats['score']}")
     print("=" * 80)
-
-    # Print team batting stats
     print(
         f"\nTEAM BATTING: {stats['team_batting']['hits']} Hits, {stats['team_batting']['runs']} Runs, {stats['team_batting']['home_runs']} HR"
     )
 
 
-def assemble_game_stats() -> dict:
+def assemble_game_stats():
     """Get and print game stats for most recent Nationals game"""
     most_recent_game, most_recent_date = get_nationals_most_recent_game()
     game_data = get_game_data(most_recent_game, most_recent_date)
     print_batting_stats(game_data)
-    return game_data
+    return
 
 
 if __name__ == "__main__":
