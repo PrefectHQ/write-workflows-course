@@ -1,9 +1,8 @@
-import requests
-from datetime import datetime, timedelta
-import json
+import httpx
+from datetime import datetime
 
 
-def get_nationals_recent_game():
+def get_nationals_most_recent_game():
     """Get stats for the most recent Washington Nationals game"""
 
     today = datetime.now()
@@ -18,11 +17,10 @@ def get_nationals_recent_game():
         "gameType": [
             "R",
             "P",
-            "S",
-        ],  # Regular season, postseason, and spring training games
+        ],  # Regular season & postseason games
     }
 
-    schedule_response = requests.get(schedule_url, schedule_params)
+    schedule_response = httpx.get(schedule_url, schedule_params)
     schedule_data = schedule_response.json()
 
     # Find the most recent completed game
@@ -57,12 +55,17 @@ def get_nationals_recent_game():
     if not most_recent_game:
         return {"error": "No recent completed games found"}
 
-    # Get the game ID and fetch detailed stats
+    return most_recent_game, most_recent_date
+
+
+def get_game_data(most_recent_game: dict, most_recent_date: datetime) -> dict:
+    """Get detailed box score stats for a given game ID"""
+
     game_id = most_recent_game["gamePk"]
 
     # Get detailed box score stats
     boxscore_url = f"https://statsapi.mlb.com/api/v1/game/{game_id}/boxscore"
-    boxscore_response = requests.get(boxscore_url)
+    boxscore_response = httpx.get(boxscore_url)
     boxscore = boxscore_response.json()
 
     # Determine if Nationals are home or away
@@ -73,7 +76,7 @@ def get_nationals_recent_game():
     # Get basic game info
     result = {
         "game_id": game_id,
-        "date": most_recent_date.strftime("%Y-%m-%d"),
+        "date": most_recent_date,
         "opponent": most_recent_game["teams"][opponent_side]["team"]["name"],
         "status": most_recent_game["status"]["detailedState"],
         "score": f"Nationals {most_recent_game['teams'][nats_side]['score']} - {most_recent_game['teams'][opponent_side]['team']['name']} {most_recent_game['teams'][opponent_side]['score']}",
@@ -94,7 +97,6 @@ def get_nationals_recent_game():
             "runs": nats_stats["batting"]["runs"],
             "hits": nats_stats["batting"]["hits"],
             "home_runs": nats_stats["batting"]["homeRuns"],
-            "avg": nats_stats["batting"]["avg"],
         }
 
     except KeyError as e:
@@ -121,8 +123,13 @@ def print_batting_stats(stats):
     )
 
 
-if __name__ == "__main__":
-    game_stats = get_nationals_recent_game()
+def assemble_game_stats() -> dict:
+    """Get and print game stats for most recent Nationals game"""
+    most_recent_game, most_recent_date = get_nationals_most_recent_game()
+    game_data = get_game_data(most_recent_game, most_recent_date)
+    print_batting_stats(game_data)
+    return game_data
 
-    # Print formatted batting stats
-    print_batting_stats(game_stats)
+
+if __name__ == "__main__":
+    assemble_game_stats()
