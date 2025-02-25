@@ -25,20 +25,13 @@ def fetch_and_save_stock_data(
 ):
     df = fetch_stock_data(ticker, start_date, end_date, period)
     df.columns = ["_".join(col).strip() for col in df.columns.values]
-
     print(df)
     save_stock_data(df, f"{ticker}_stock_data.csv")
 
 
 if __name__ == "__main__":
-    fetch_and_save_stock_data()
-    # fetch_and_save_stock_data.serve(
-    # name="fetch-and-save-stock-data",
-    # cron="0 0 * * *",
-    # parameters={
-    #     "ticker": "AAPL",
-    #     "start_date": "2025-02-01",
-    #     "end_date": "2025-02-26",
-    #     "period": "1d",
-    # },
-#  )
+    # fetch_and_save_stock_data()
+    fetch_and_save_stock_data.serve(
+        name="fetch-and-save-stock-data",
+        cron="0 0 * * *",
+    )

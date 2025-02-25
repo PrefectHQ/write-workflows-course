@@ -5,7 +5,7 @@ from prefect import flow, task
 
 
 @task
-def get_nationals_most_recent_game():
+def get_nationals_most_recent_game(team_id: int = 120):
     """Get stats for the most recent Washington Nationals game"""
 
     today = datetime.now()
@@ -13,7 +13,7 @@ def get_nationals_most_recent_game():
     # Get the current season schedule
     schedule_url = "https://statsapi.mlb.com/api/v1/schedule"
     schedule_params = {
-        "teamId": 120,  # Washington Nationals team ID
+        "teamId": team_id,
         "sportId": 1,  # MLB
         "startDate": "2024-01-01",
         "endDate": today.strftime("%Y-%m-%d"),
@@ -142,9 +142,9 @@ def save_game_stats(game_data: dict):
 
 
 @flow(log_prints=True)
-def assemble_game_stats():
+def assemble_game_stats(team_id: int = 120):
     """Get and print game stats for most recent Nationals game"""
-    most_recent_game = get_nationals_most_recent_game()
+    most_recent_game = get_team_most_recent_game(team_id)
     game_data = get_game_data(most_recent_game)
     print_batting_stats(game_data)
     save_game_stats(game_data)

@@ -12,25 +12,37 @@
 
 <p><strong>Step 2.</strong> Create and activate a virtual environment.</p>
 
-<p>Virtual environments isolate your Python library versions to avoid dependency conflicts.</p>
+<p>Virtual environments isolate the Python library versions you need for your projects to help you avoid dependency
+    conflicts.</p>
 
-<p>Create a Python virtual environment. We recommend using <a
-        href="https://docs.astral.sh/uv/getting-started/installation/" rel="noopener noreferrer" target="_blank">uv</a>.
+<p>To create a Python virtual environment for this course. We recommend using <a
+        href="https://docs.astral.sh/uv/getting-started/installation/" rel="noopener noreferrer" target="_blank">uv</a>,
+    but feel free to use another virtual environment manager if you prefer.
 </p>
 
-<p>See this GitHub gist for instructions to create and activate a virtual environment with, if needed.</p>
+<h3>Install uv</h3>
+<p> </p>If needed, install uv by running this command in your CLI: </p>
+<pre><code>pip install uv</code></pre>
+
+<p>See [this GitHub gist](https://gist.github.com/discdiver/0bb3bf96f02c182f96d45278f9564551) for instructions to
+    install uv </p>
+
+<p>Create a virtual environment by running this command in your CLI:</p>
+
+<pre><code>uv venv</code></pre>
+
+<p>Activate the virtual environment by running this command in your CLI:</p>
+
+<pre><code>uv venv --activate</code></pre>
 
 <p><strong>Step 3.</strong> Install the necessary Python packages into your virtual environment by running this command
     in your CLI:</p>
-<pre><code>pip install -r requirements.txt</code></pre>
+<pre><code>uv </code></pre>
 
 <p>You should see several packages installed into your environment.</p>
 
 <p>The packages versions pinned here work together as of this writing. If you like, you can remove the pins to upgrade
     to the latest package versions.</p>
-
-<p>Create the database table and input the starter data by running this command:</p>
-<pre><code>python 00_setup.py</code></pre>
 
 <p><strong>Step 5.</strong> Set your Prefect backend option.</p>
 
