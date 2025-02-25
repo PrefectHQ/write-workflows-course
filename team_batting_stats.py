@@ -1,3 +1,4 @@
+import csv
 import httpx
 from datetime import datetime
 
@@ -20,7 +21,7 @@ def get_nationals_most_recent_game():
         ],  # Regular season & postseason games
     }
 
-    schedule_response = httpx.get(schedule_url, schedule_params)
+    schedule_response = httpx.get(url=schedule_url, params=schedule_params)
     schedule_data = schedule_response.json()
 
     # Find the most recent completed game
@@ -55,7 +56,7 @@ def get_nationals_most_recent_game():
     if not most_recent_game:
         return {"error": "No recent completed games found"}
 
-    return most_recent_game, most_recent_date
+    return most_recent_game
 
 
 def get_game_data(most_recent_game: dict, most_recent_date: datetime) -> dict:
@@ -65,7 +66,7 @@ def get_game_data(most_recent_game: dict, most_recent_date: datetime) -> dict:
 
     # Get detailed box score stats
     boxscore_url = f"https://statsapi.mlb.com/api/v1/game/{game_id}/boxscore"
-    boxscore_response = httpx.get(boxscore_url)
+    boxscore_response = httpx.get(url=boxscore_url)
     boxscore = boxscore_response.json()
 
     # Determine if Nationals are home or away
@@ -76,7 +77,7 @@ def get_game_data(most_recent_game: dict, most_recent_date: datetime) -> dict:
     # Store basic game info in a dictionary
     result = {
         "game_id": game_id,
-        "date": most_recent_date,
+        "date": most_recent_game["gameDate"],
         "opponent": most_recent_game["teams"][opponent_side]["team"]["name"],
         "status": most_recent_game["status"]["detailedState"],
         "score": f"Nationals {most_recent_game['teams'][nats_side]['score']} - {most_recent_game['teams'][opponent_side]['team']['name']} {most_recent_game['teams'][opponent_side]['score']}",
@@ -118,11 +119,28 @@ def print_batting_stats(stats):
     )
 
 
+def save_game_stats(game_data: dict):
+    """Save game stats to a CSV file"""
+
+    with open("game_stats.csv", "w") as f:
+        writer = csv.writer(f)
+        writer.writerow(game_data.keys())
+
+        # Convert all values to lists to ensure they are iterable
+        iterable_values = [
+            value if isinstance(value, (list, tuple)) else [value]
+            for value in game_data.values()
+        ]
+
+        writer.writerows(zip(*iterable_values))
+
+
 def assemble_game_stats():
     """Get and print game stats for most recent Nationals game"""
-    most_recent_game, most_recent_date = get_nationals_most_recent_game()
-    game_data = get_game_data(most_recent_game, most_recent_date)
+    most_recent_game = get_nationals_most_recent_game()
+    game_data = get_game_data(most_recent_game)
     print_batting_stats(game_data)
+    save_game_stats(game_data)
     return
 
 
