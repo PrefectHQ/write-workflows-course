@@ -21,28 +21,27 @@
 </p>
 
 <h3>Install uv</h3>
-<p> </p>If needed, install uv by running this command in your CLI: </p>
-<pre><code>pip install uv</code></pre>
+<p> </p>If needed, install uv on macOS or Linux by running this command in your CLI: </p>
+<pre><code>curl -LsSf https://astral.sh/uv/install.sh | sh</code></pre>
 
-<p>See [this GitHub gist](https://gist.github.com/discdiver/0bb3bf96f02c182f96d45278f9564551) for instructions to
-    install uv </p>
+<p>If needed, install uv on Windows by running this command in your CLI:</p>
 
-<p>Create a virtual environment by running this command in your CLI:</p>
+<pre><code></code>powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"</code></pre>
 
-<pre><code>uv venv</code></pre>
+<p>See <a href="https://docs.astral.sh/uv/getting-started/installation/#__tabbed_1_1" rel="noopener noreferrer"
+        target="_blank">this page</a> for more information on installing uv.</p>
 
-<p>Activate the virtual environment by running this command in your CLI:</p>
+<p>The `uv.lock` lockfile contains the dependencies for this course. To create a virtual environment and install the
+    dependencies,
+    run this command from the root of the repository:</p>
 
-<pre><code>uv venv --activate</code></pre>
+<pre><code>uv sync</code></pre>
 
-<p><strong>Step 3.</strong> Install the necessary Python packages into your virtual environment by running this command
-    in your CLI:</p>
-<pre><code>uv </code></pre>
+<p>Then activate the virtual environment by running:</p>
 
-<p>You should see several packages installed into your environment.</p>
+<pre><code>source .venv/bin/activate</code></pre>
 
-<p>The packages versions pinned here work together as of this writing. If you like, you can remove the pins to upgrade
-    to the latest package versions.</p>
+
 
 <p><strong>Step 5.</strong> Set your Prefect backend option.</p>
 
