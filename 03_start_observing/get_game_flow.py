@@ -1,7 +1,9 @@
 import httpx
 from datetime import datetime
+from prefect import flow
 
 
+@flow
 def get_nationals_most_recent_game():
     """Fetch the most recent Washington Nationals game"""
 

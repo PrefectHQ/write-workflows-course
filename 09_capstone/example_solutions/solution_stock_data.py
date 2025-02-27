@@ -30,7 +30,6 @@ def fetch_and_save_stock_data(
 
 
 if __name__ == "__main__":
-    # fetch_and_save_stock_data()
     fetch_and_save_stock_data.serve(
         name="fetch-and-save-stock-data",
         cron="0 0 * * *",
