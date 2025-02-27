@@ -1,0 +1,108 @@
+<h1>Course setup</h1>
+
+<p><strong>Step 1.</strong> Clone the course repository at <a href="https://github.com/PrefectHQ/write-workflows-course"
+        rel="noopener noreferrer" target="_blank">github.com/PrefectHQ/write-workflows-course</a> by running this
+    command in your CLI:&nbsp;</p>
+
+<p><code>git clone <a href="https://github.com/PrefectHQ/write-workflows-course.git">https://github.com/PrefectHQ/write-workflows-course.git</a></code>
+</p>
+
+<p>The contents of the repository will be downloaded to your local machine in the <em>write-workflows-course</em>
+    folder.</p>
+
+<p><strong>Step 2.</strong> Create and activate a virtual environment.</p>
+
+<p>Virtual environments isolate the Python library versions you need for your projects to help you avoid dependency
+    conflicts.</p>
+
+<p>To create a Python virtual environment for this course. We recommend using <a
+        href="https://docs.astral.sh/uv/getting-started/installation/" rel="noopener noreferrer" target="_blank">uv</a>,
+    but feel free to use another virtual environment manager if you prefer.</p>
+
+<h3>Install uv</h3>
+
+<p>If needed, install uv on macOS or Linux by running this command in your CLI:</p>
+<pre><code>curl -LsSf https://astral.sh/uv/install.sh | sh</code></pre>
+
+<p>If needed, install uv on Windows by running this command in your CLI:</p>
+<pre>powershell -ExecutionPolicy ByPass -c &quot;irm https://astral.sh/uv/install.ps1 | iex&quot;</pre>
+
+<p>See <a href="https://docs.astral.sh/uv/getting-started/installation/#__tabbed_1_1" rel="noopener noreferrer"
+        target="_blank">this page</a> for more information on installing uv.</p>
+
+<p>The `uv.lock` lockfile contains the dependencies for this course. To create a virtual environment and install the
+    dependencies, run this command from the root of the repository:</p>
+<pre><code>uv sync</code></pre>
+
+<p>Then activate the virtual environment by running:</p>
+<pre><code>source .venv/bin/activate</code></pre>
+
+<p>Alternatively, if you&#39;re using venv or conda, you can install the dependencies by running:</p>
+<pre><code>pip install -r requirements.txt</code></pre>
+
+<p><strong>Step 3.</strong> Connect to Prefect Cloud</p>
+
+<p>You can interact with a Prefect API server one of two ways. You can either host a server yourself or you can interact
+    with a server hosted on the Prefect Cloud platform.</p>
+
+<p>With the Prefect Cloud platform, Prefect provides plans for</p>
+
+<ul>
+    <li>authentication and access controls</li>
+    <li>audit logging</li>
+    <li>scaling the database</li>
+    <li>hosted compute</li>
+    <li>and additional features to understand and take action based the global state of their workflows.</li>
+</ul>
+
+<p>Throughout this course we&#39;ll demonstrate interacting with a Prefect Cloud instance.</p>
+
+<p>If you don&#39;t already have a Prefect Cloud account, create one at <a href="https://app.prefect.cloud"
+        rel="noopener noreferrer" target="_blank">app.prefect.cloud</a>.</p>
+
+<p>If you were invited to a Prefect Cloud account by your organization, follow the instructions in the invitation email
+    to sign in to your account.</p>
+
+<p>Save your API endpoint and your API key to your Prefect profile.</p>
+
+<p>From your CLI, run</p>
+<pre><code>prefect cloud login </code></pre>
+
+<p>to authenticate your CLI. This command saves both your API URL and an API key to your local Prefect profile.</p>
+
+<p>Each Prefect Cloud account can have multiple workspaces. If you have access to multiple workspaces, choose the
+    workspace you want to use for the course when prompted. Each workspace is completely self contained.</p>
+
+<p>Check your Prefect setup by running</p>
+<pre><code>prefect version</code></pre>
+
+<p>The output will provide useful information about your current environment and look something like this:&nbsp;</p>
+
+<p><img src="https://files.cdn.thinkific.com/file_uploads/871959/images/077/6de/dba/Screenshot_2024-10-18_at_3.48.44%E2%80%AFPM.png"
+        style="width: 824px;" class="fr-fic fr-dii"
+        srcset="https://files.cdn.thinkific.com/file_uploads/871959/images/077/6de/dba/Screenshot_2024-10-18_at_3.48.44%E2%80%AFPM.png?width=1920 1x, https://files.cdn.thinkific.com/file_uploads/871959/images/077/6de/dba/Screenshot_2024-10-18_at_3.48.44%E2%80%AFPM.png?width=1920&dpr=2 2x, https://files.cdn.thinkific.com/file_uploads/871959/images/077/6de/dba/Screenshot_2024-10-18_at_3.48.44%E2%80%AFPM.png?width=1920&dpr=3 3x"
+        alt="Screenshot showing CLI output with version information."></p>
+
+<h2>Wrap</h2>
+
+<p>You&#39;ve learned about options for working with Prefect and set up your environment.&nbsp;</p>
+
+<p>Let&#39;s check out a few resources to assist us in the course and beyond.</p>
+
+<p><strong>Slack</strong></p>
+
+<p>✋ Join the <a href="https://prefect.io/slack" rel=" noopener noreferrer" target="_blank">Prefect Slack community</a>
+    to
+    ask questions and get help from the community. Be sure to join the <em>#prefect-fundamentals-course</em> channel.
+</p>
+
+<p><strong>📃 Prefect docs</strong></p>
+
+<p>The <a href="https://docs.prefect.io" rel="noopener noreferrer" target="_blank">Prefect docs</a> are a great resource
+    for learning more about Prefect. You can even use the AI search feature to ask questions.</p>
+
+<p><strong>⭐️ Prefect GitHub repository</strong></p>
+
+<p>The <a href="https://github.com/PrefectHQ/prefect" rel="noopener noreferrer" target="_blank">Prefect GitHub
+        repository</a> contains the source code for the Prefect client. See the source code, file bug report and feature
+    request issues, or contribute to the project. And don&#39;t forget to star the repo!</p>

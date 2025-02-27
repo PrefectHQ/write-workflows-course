@@ -55,9 +55,9 @@ def get_nationals_most_recent_game():
     if not most_recent_game:
         return {"error": "No recent completed games found"}
 
+    print(most_recent_game)
     return most_recent_game
 
 
 if __name__ == "__main__":
     most_recent_game = get_nationals_most_recent_game()
-    print(most_recent_game)
