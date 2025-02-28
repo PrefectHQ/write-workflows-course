@@ -13,6 +13,7 @@ def fetch_stock_data(
 
 @task
 def save_stock_data(df: pd.DataFrame, filename: str):
+    raise Exception("This is a test error")
     df.to_csv(filename)
 
 
