@@ -4,9 +4,25 @@ import yfinance as yf
 from prefect import flow, task
 from prefect.tasks import exponential_backoff
 
+def retry_handler(task, task_run, state) -> bool:
+    """Custom retry handler that specifies when to retry a task"""
+    try:
+        # Attempt to get the result of the task
+        state.result()
+    except httpx.HTTPStatusError as exc:
+        # Retry on any HTTP status code that is not 401 or 404
+        do_not_retry_on_this_code = [404]
+        return exc.response.status_code not in do_not_retry_on_this_code
+    except httpx.ConnectError:
+        # Do not retry on connection error
+        return False
+    except:
+        # Retry on any other exception
+        return True
+
 
 @task(
-    retries=2, retry_delay_seconds=4
+    retries=2, retry_condition_fn=retry_handler
 )  # retry_delay_seconds=[2, 3] # retry_delay_seconds=[2, 3] # retry_delay_seconds=exponential_backoff(backoff_factor=5) # retry_jitter_factor=1
 # retry behavior globally
 # prefect config set PREFECT_TASK_DEFAULT_RETRIES=2
