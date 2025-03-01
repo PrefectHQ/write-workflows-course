@@ -1,9 +1,7 @@
 import pandas as pd
 import yfinance as yf
-from prefect import flow, task
 
 
-@task
 def fetch_stock_data(
     ticker: str, start_date: str, end_date: str, period: str = "1d"
 ) -> pd.DataFrame:
@@ -12,13 +10,11 @@ def fetch_stock_data(
     return df
 
 
-@task
 def save_raw_stock_data(df: pd.DataFrame, filename: str):
     """Save the raw stock data to a CSV file."""
     df.to_csv(f"./data/{filename}")
 
 
-@task
 def transform_stock_data(df: pd.DataFrame) -> pd.DataFrame:
     """Compute the moving average of the close price for the previous 3 days."""
     stock_name = df.columns.get_level_values(1)[0]
@@ -26,13 +22,11 @@ def transform_stock_data(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-@task
 def save_transformed_stock_data(df: pd.DataFrame, filename: str):
     """Write the transformed stock data to a CSV file."""
     df.to_csv(f"./data/{filename}")
 
 
-@flow
 def fetch_and_save_stock_data(
     ticker: str = "AAPL",
     start_date: str = "2025-02-01",

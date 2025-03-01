@@ -20,7 +20,6 @@ def transform_stock_data(df: pd.DataFrame) -> pd.DataFrame:
     """Compute the moving average of the close price for the previous 3 days."""
     stock_name = df.columns.get_level_values(1)[0]
     df[("Moving Average Close", stock_name)] = df["Close"].rolling(window=3).mean()
-    print(df)
     return df
 
 
