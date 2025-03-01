@@ -1,4 +1,3 @@
-import random
 import pandas as pd
 import yfinance as yf
 from prefect import flow, task

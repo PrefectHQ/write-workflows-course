@@ -1,7 +1,8 @@
+import random
 import pandas as pd
 import yfinance as yf
 from prefect import flow, task
-from prefect.logging import get_run_logger
+from prefect.schedules import Cron
 
 
 @task(retries=2)
@@ -24,8 +25,6 @@ def transform_stock_data(df: pd.DataFrame) -> pd.DataFrame:
     """Compute the moving average of the close price for the previous 3 days."""
     stock_name = df.columns.get_level_values(1)[0]
     df[("Moving Average Close", stock_name)] = df["Close"].rolling(window=3).mean()
-    logger = get_run_logger()
-    logger.debug("help me debug")  # only shows when log level is set to debug
     return df
 
 
@@ -52,4 +51,12 @@ def fetch_and_save_stock_data(
 
 
 if __name__ == "__main__":
-    fetch_and_save_stock_data(ticker="AMZN")
+    fetch_and_save_stock_data.serve(
+        name="fetch-and-save-snowflake-stock-data",
+        schedules=[
+            Cron(
+                "0 0 * * *",
+                timezone="America/New_York",
+            ),
+        ],
+    )
