@@ -12,7 +12,7 @@ def fetch_stock_data(
 
 def save_raw_stock_data(df: pd.DataFrame, filename: str):
     """Save the raw stock data to a CSV file."""
-    df.to_csv(f"./data/{filename}")
+    df.to_csv(f"../data/{filename}")
 
 
 def transform_stock_data(df: pd.DataFrame) -> pd.DataFrame:
@@ -24,7 +24,7 @@ def transform_stock_data(df: pd.DataFrame) -> pd.DataFrame:
 
 def save_transformed_stock_data(df: pd.DataFrame, filename: str):
     """Write the transformed stock data to a CSV file."""
-    df.to_csv(f"./data/{filename}")
+    df.to_csv(f"../data/{filename}")
 
 
 def fetch_and_save_stock_data(
