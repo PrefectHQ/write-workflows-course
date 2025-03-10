@@ -2,7 +2,8 @@ import random
 import pandas as pd
 import yfinance as yf
 from prefect import flow, task
-from prefect.schedules import Cron
+from prefect.schedules import Cron, Interval
+from datetime import timedelta
 
 
 @task(retries=2)
@@ -55,7 +56,11 @@ if __name__ == "__main__":
         name="fetch-and-save-snowflake-stock-data",
         schedules=[
             Cron(
-                "0 0 * * *",
+                "1 1 1 1 1",
+                timezone="America/New_York",
+            ),
+            Interval(
+                timedelta(days=1),
                 timezone="America/New_York",
             ),
         ],
