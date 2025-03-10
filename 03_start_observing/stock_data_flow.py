@@ -28,6 +28,7 @@ def save_transformed_stock_data(df: pd.DataFrame, filename: str):
     df.to_csv(f"./data/{filename}")
 
 
+@flow
 def fetch_and_save_stock_data(
     ticker: str = "AAPL",
     start_date: str = "2025-02-01",
