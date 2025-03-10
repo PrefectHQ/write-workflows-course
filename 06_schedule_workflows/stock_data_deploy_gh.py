@@ -3,9 +3,9 @@ from prefect import flow
 
 if __name__ == "__main__":
     flow.from_source(
-        source="https://github.com/org/repo.git",  # TK update
-        entrypoint="path/to/my_remote_flow_code_file.py:entrypoint function",
+        source="https://github.com/PrefectHQ/write-workflows-course.git",
+        entrypoint="03_start_observing/stock_data_flow.py:fetch_and_save_stock_data",
     ).serve(
-        name="fetch-and-save-snowflake-stock-data",
-        cron="0 0 * * *",
+        name="stock-data-from-gh-repo",
+        cron="0 0 0 * *",
     )

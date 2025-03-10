@@ -1,10 +1,9 @@
-import random
 import pandas as pd
 import yfinance as yf
 from prefect import flow, task
 
 
-@task(retries=2)
+@task
 def fetch_stock_data(
     ticker: str, start_date: str, end_date: str, period: str = "1d"
 ) -> pd.DataFrame:
@@ -31,10 +30,9 @@ def transform_stock_data(df: pd.DataFrame) -> pd.DataFrame:
 def save_transformed_stock_data(df: pd.DataFrame, filename: str):
     """Write the transformed stock data to a CSV file."""
     df.to_csv(f"./data/{filename}")
-    print(f"Saved transformed stock data to ./data/{filename}")
 
 
-@flow(log_prints=True)
+@flow
 def fetch_and_save_stock_data(
     ticker: str = "AAPL",
     start_date: str = "2025-02-01",
@@ -46,8 +44,7 @@ def fetch_and_save_stock_data(
     save_raw_stock_data(df_raw, f"{ticker}_stock_data.csv")
     df_transformed = transform_stock_data(df_raw)
     save_transformed_stock_data(df_transformed, f"{ticker}_transformed_stock_data.csv")
-    print(df_transformed)
 
 
 if __name__ == "__main__":
-    fetch_and_save_stock_data.serve(name="fetch-and-save-snowflake-stock-data")
+    fetch_and_save_stock_data()
