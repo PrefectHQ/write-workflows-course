@@ -7,5 +7,5 @@ if __name__ == "__main__":
         entrypoint="03_start_observing/stock_data_flow.py:fetch_and_save_stock_data",
     ).serve(
         name="stock-data-from-gh-repo",
-        cron="0 0 0 * *",
+        cron="0 * * * *",
     )
