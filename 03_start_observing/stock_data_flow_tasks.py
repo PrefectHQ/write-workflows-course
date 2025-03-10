@@ -15,7 +15,7 @@ def fetch_stock_data(
 @task
 def save_raw_stock_data(df: pd.DataFrame, filename: str):
     """Save the raw stock data to a CSV file."""
-    df.to_csv(f"./data/{filename}")
+    df.to_csv(f"../data/{filename}")
 
 
 @task
@@ -29,7 +29,7 @@ def transform_stock_data(df: pd.DataFrame) -> pd.DataFrame:
 @task
 def save_transformed_stock_data(df: pd.DataFrame, filename: str):
     """Write the transformed stock data to a CSV file."""
-    df.to_csv(f"./data/{filename}")
+    df.to_csv(f"../data/{filename}")
 
 
 @flow
